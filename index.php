@@ -122,5 +122,10 @@ input[type="submit"]:hover {
         $nameError= $emailErr = $genderErr =$websiteErr="";
         $name= $email = $gender =$comment = $website= "";
         $formSubmittedSuccessfully= false;
-        
+
+        function test_input($data)
+            $data= trim($data);
+            $data=stripslashes($data);
+            $data= htmlspecialchars($data);
+            return data;
 
