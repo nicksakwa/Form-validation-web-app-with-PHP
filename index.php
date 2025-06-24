@@ -123,9 +123,32 @@ input[type="submit"]:hover {
         $name= $email = $gender =$comment = $website= "";
         $formSubmittedSuccessfully= false;
 
-        function test_input($data)
+        function test_input($data){
             $data= trim($data);
             $data=stripslashes($data);
             $data= htmlspecialchars($data);
             return data;
+        }
+        if ($_SERVER["REQUEST_METHOD"]=="POST"){
+            if (empty($_POST["name"])){
+                $nameErr="Name is required";
+            }else{
+                $name= test_input($_POST["name"]);
+                if(!preg_match("/^[a-zA-Z-']*$/", $name)){
+                    $nameErr="Only letters and white space allowed";
+                }
+            }
+            if (empty($_POST["email"])){
+                $email= test_input($_POST["email"]);
+                if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                    $emailErr="Invalid email format";
+                }
+            }
+            if(!empty($_POST["website"])){
+                $website= test_input($_POST["website"])
+
+            }
+
+        }
+        
 
