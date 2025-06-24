@@ -145,8 +145,12 @@ input[type="submit"]:hover {
                 }
             }
             if(!empty($_POST["website"])){
-                $website= test_input($_POST["website"])
-
+                $website= test_input($_POST["website"]);
+                if(!filter_var($website, FILTER_VALIDATE_URL)){
+                    $websiteErr="Invalid URL format";
+                }
+            } else{
+                $website="";
             }
 
         }
