@@ -164,5 +164,12 @@ input[type="submit"]:hover {
             }
         }
         ?>
+        <h2>PHP form validation example </h2>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>">
+                <span class="error"><?php echo $nameErr:?></span>
+            </div>
         
 
