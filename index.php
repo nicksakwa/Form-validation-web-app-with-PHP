@@ -116,3 +116,11 @@ input[type="submit"]:hover {
 }
 </style>
 </head>
+<body>
+    <div class="container">
+        <?php
+        $nameError= $emailErr = $genderErr =$websiteErr="";
+        $name= $email = $gender =$comment = $website= "";
+        $formSubmittedSuccessfully= false;
+        
+
