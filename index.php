@@ -152,7 +152,17 @@ input[type="submit"]:hover {
             } else{
                 $website="";
             }
+            $comment=test_input($_POST["comment"]);
 
+            if(empty($_POST["gender"])){
+                $genderErr="Gender is required";
+            } else{
+                $gender=test_input($_POST["gender"]);
+            }
+            if (empty($nameErr)&& empty($emailErr)&& empty($genderErr)&& empty($websiteErr)){
+                $formSubmittedSuccessfully= true;
+            }
         }
+        ?>
         
 
