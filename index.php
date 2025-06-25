@@ -1,10 +1,11 @@
-<!DOCTYPE>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <meta name="viewport" content="width-device-width" intial-scale="1.0">
-    <title>PHP Form Validation</title>
-    <style>
-        body {
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHP Form Validation</title>
+<style>
+/* Basic styling for better readability and responsiveness */
+body {
     font-family: "Inter", sans-serif;
     background-color: #f0f2f5;
     display: flex;
@@ -117,100 +118,129 @@ input[type="submit"]:hover {
 </style>
 </head>
 <body>
-    <div class="container">
-        <?php
-        $nameError= $emailErr = $genderErr =$websiteErr="";
-        $name= $email = $gender =$comment = $website= "";
-        $formSubmittedSuccessfully= false;
 
-        function test_input($data){
-            $data= trim($data);
-            $data=stripslashes($data);
-            $data= htmlspecialchars($data);
-            return data;
-        }
-        if ($_SERVER["REQUEST_METHOD"]=="POST"){
-            if (empty($_POST["name"])){
-                $nameErr="Name is required";
-            }else{
-                $name= test_input($_POST["name"]);
-                if(!preg_match("/^[a-zA-Z-']*$/", $name)){
-                    $nameErr="Only letters and white space allowed";
-                }
-            }
-            if (empty($_POST["email"])){
-                $email= test_input($_POST["email"]);
-                if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                    $emailErr="Invalid email format";
-                }
-            }
-            if(!empty($_POST["website"])){
-                $website= test_input($_POST["website"]);
-                if(!filter_var($website, FILTER_VALIDATE_URL)){
-                    $websiteErr="Invalid URL format";
-                }
-            } else{
-                $website="";
-            }
-            $comment=test_input($_POST["comment"]);
+<div class="container">
+<?php
+// Define variables and set to empty values
+$nameErr = $emailErr = $genderErr = $websiteErr = "";
+$name = $email = $gender = $comment = $website = "";
+$formSubmittedSuccessfully = false;
 
-            if(empty($_POST["gender"])){
-                $genderErr="Gender is required";
-            } else{
-                $gender=test_input($_POST["gender"]);
-            }
-            if (empty($nameErr)&& empty($emailErr)&& empty($genderErr)&& empty($websiteErr)){
-                $formSubmittedSuccessfully= true;
-            }
-        }
-        ?>
-        <h2>PHP form validation example </h2>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>">
-                <span class="error"><?php echo $nameErr:?></span>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
-                <span class="error"><?php echo $emailErr:?></span>
-            </div>
-            <div>
-                <label for="website">Website:</label>
-                <input type="text" id="website" name="website" value="<?php echo htmlspecialchars($website); ?>">
-                <span class="error"><?php echo $websiteErr:?></span>
-            </div>
-            <div>
-                <label for="comment">Comment:</label>
-                <textarea type="text" id="comment" name="comment" row="5" cols="40"><?php echo htmlspecialchars($comment); ?></textarea>
-            </div>
-            <div class="radio-group">
-                <label>Gender:</label>
-                <input type="radio" id="female" name="gender" value="female" <?php if (isset($gender) && $gender=="female") echo "checked";?>>
-                <label for="female">Female</label>
-                <input type="radio" id="male" name="gender" value="male" <?php if (isset($gender) && $gender=="male") echo "checked";?>>
-                <label for="male">Male</label>
-                <input type="radio" id="other" name="gender" value="other" <?php if(isset($gender) && $gender=="other") echo "checked";?>>
-                <label for="Other">Other</label>
-                <span class="error"><?php echo $genderErr;?></span>
-            </div>
-            <div>
-                <input type="submit" name="submit" value="Submit">
-            </div>
-        </form>
-        <?php
-        if ($formSubmittedSuccessfully){
-            echo "<div class='input-summary'>";
-            echo "<h3>Your input:</h3>";
-            echo "<p><strong>Name:</strong>". htmlspecialchars($name) ."</p>";
-            echo "<p><strong>Email:</strong>". htmlspecialchars($email) ."</p>";
-            echo "<p><strong>Website:</strong>". htmlspecialchars($website) ."</p>";
-            echo "<p><strong>Comment:</strong>". htmlspecialchars($comment) ."</p>";
-            echo "<p><strong>Gender:</strong>". htmlspecialchars($gender) ."</p>";
-            echo "</div>";
-        }
-        ?>
-        </div>
-</body>
+// Function to sanitize input data
+function test_input($data) {
+  $data = trim($data); // Remove whitespace from the beginning and end of string
+  $data = stripslashes($data); // Remove backslashes
+  $data = htmlspecialchars($data); // Convert special characters to HTML entities
+  return $data;
+}
+
+// Check if the form has been submitted using POST method
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Validate Name
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+    // Check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+      $nameErr = "Only letters and white space allowed";
+    }
+  }
+
+  // Validate Email
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = test_input($_POST["email"]);
+    // Check if e-mail address is well-formed using filter_var
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $emailErr = "Invalid email format";
+    }
+  }
+
+  // Validate Website (optional field, only validate if not empty)
+  if (!empty($_POST["website"])) {
+    $website = test_input($_POST["website"]);
+    // Check if URL address syntax is valid using filter_var
+    if (!filter_var($website, FILTER_VALIDATE_URL)) {
+      $websiteErr = "Invalid URL format";
+    }
+  } else {
+    $website = ""; // Ensure website is an empty string if not provided
+  }
+
+  // Comment field (optional, no specific validation beyond sanitization)
+  $comment = test_input($_POST["comment"]);
+
+  // Validate Gender
+  if (empty($_POST["gender"])) {
+    $genderErr = "Gender is required";
+  } else {
+    $gender = test_input($_POST["gender"]);
+  }
+
+  // Check if there are any errors. If not, the form was submitted successfully.
+  if (empty($nameErr) && empty($emailErr) && empty($genderErr) && empty($websiteErr)) {
+    $formSubmittedSuccessfully = true;
+  }
+}
+?>
+
+<h2>PHP Form Validation Example</h2>
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>">
+    <span class="error"><?php echo $nameErr;?></span>
+  </div>
+
+  <div>
+    <label for="email">E-mail:</label>
+    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
+    <span class="error"><?php echo $emailErr;?></span>
+  </div>
+
+  <div>
+    <label for="website">Website:</label>
+    <input type="text" id="website" name="website" value="<?php echo htmlspecialchars($website); ?>">
+    <span class="error"><?php echo $websiteErr;?></span>
+  </div>
+
+  <div>
+    <label for="comment">Comment:</label>
+    <textarea id="comment" name="comment" rows="5" cols="40"><?php echo htmlspecialchars($comment);?></textarea>
+  </div>
+
+  <div class="radio-group">
+    <label>Gender:</label>
+    <input type="radio" id="female" name="gender" value="female" <?php if (isset($gender) && $gender=="female") echo "checked";?>>
+    <label for="female">Female</label>
+    <input type="radio" id="male" name="gender" value="male" <?php if (isset($gender) && $gender=="male") echo "checked";?>>
+    <label for="male">Male</label>
+    <input type="radio" id="other" name="gender" value="other" <?php if (isset($gender) && $gender=="other") echo "checked";?>>
+    <label for="other">Other</label>
+    <span class="error"><?php echo $genderErr;?></span>
+  </div>
+
+  <div>
+    <input type="submit" name="submit" value="Submit">
+  </div>
+</form>
+
+<?php
+// Display the submitted input only if the form was successfully validated
+if ($formSubmittedSuccessfully) {
+  echo "<div class='input-summary'>";
+  echo "<h3>Your Input:</h3>";
+  echo "<p><strong>Name:</strong> " . htmlspecialchars($name) . "</p>";
+  echo "<p><strong>E-mail:</strong> " . htmlspecialchars($email) . "</p>";
+  echo "<p><strong>Website:</strong> " . htmlspecialchars($website) . "</p>";
+  echo "<p><strong>Comment:</strong> " . htmlspecialchars($comment) . "</p>";
+  echo "<p><strong>Gender:</strong> " . htmlspecialchars($gender) . "</p>";
+  echo "</div>";
+}
+?>
+
+</div> </body>
 </html>
