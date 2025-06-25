@@ -198,3 +198,19 @@ input[type="submit"]:hover {
             <div>
                 <input type="submit" name="submit" value="Submit">
             </div>
+        </form>
+        <?php
+        if ($formSubmittedSuccessfully){
+            echo "<div class='input-summary'>";
+            echo "<h3>Your input:</h3>";
+            echo "<p><strong>Name:</strong>". htmlspecialchars($name) ."</p>";
+            echo "<p><strong>Email:</strong>". htmlspecialchars($email) ."</p>";
+            echo "<p><strong>Website:</strong>". htmlspecialchars($website) ."</p>";
+            echo "<p><strong>Comment:</strong>". htmlspecialchars($comment) ."</p>";
+            echo "<p><strong>Gender:</strong>". htmlspecialchars($gender) ."</p>";
+            echo "</div>";
+        }
+        ?>
+        </div>
+</body>
+</html>
