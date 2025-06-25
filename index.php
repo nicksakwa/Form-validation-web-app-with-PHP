@@ -185,5 +185,13 @@ input[type="submit"]:hover {
                 <label for="comment">Comment:</label>
                 <textarea type="text" id="comment" name="comment" row="5" cols="40"><?php echo htmlspecialchars($comment); ?></textarea>
             </div>
-        
-
+            <div class="radio-group">
+                <label>Gender:</label>
+                <input type="radio" id="female" name="gender" value="female" <?php if (isset($gender) && $gender=="female") echo "checked";?>>
+                <label for="female">Female</label>
+                <input type="radio" id="male" name="gender" value="male" <?php if (isset($gender) && $gender=="male") echo "checked";?>>
+                <label for="male">Male</label>
+                <input type="radio" id="other" name="gender" value="other" <?php if(isset($gender) && $gender=="other") echo "checked";?>>
+                <label for="Other">Other</label>
+                <span class="error"><?php echo $genderErr;?></span>
+            </div>
