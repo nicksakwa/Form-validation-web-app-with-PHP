@@ -195,3 +195,6 @@ input[type="submit"]:hover {
                 <label for="Other">Other</label>
                 <span class="error"><?php echo $genderErr;?></span>
             </div>
+            <div>
+                <input type="submit" name="submit" value="Submit">
+            </div>
