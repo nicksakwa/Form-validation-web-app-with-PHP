@@ -171,5 +171,10 @@ input[type="submit"]:hover {
                 <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>">
                 <span class="error"><?php echo $nameErr:?></span>
             </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>">
+                <span class="error"><?php echo $emailErr:?></span>
+            </div>
         
 
