@@ -181,6 +181,9 @@ input[type="submit"]:hover {
                 <input type="text" id="website" name="website" value="<?php echo htmlspecialchars($website); ?>">
                 <span class="error"><?php echo $websiteErr:?></span>
             </div>
-          
+            <div>
+                <label for="comment">Comment:</label>
+                <textarea type="text" id="comment" name="comment" row="5" cols="40"><?php echo htmlspecialchars($comment); ?></textarea>
+            </div>
         
 
